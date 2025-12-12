@@ -8,20 +8,13 @@
     "version": "1",
     "name": "Time Attack",
     "homeUrl": "https://mini-games-ifdp.vercel.app",
-    "iconUrl": "https://mini-games-ifdp.vercel.app/icon.png",
-    "splashImageUrl": "https://mini-games-ifdp.vercel.app/splash.png",
-    "splashBackgroundColor": "#020817",
     "subtitle": "Test your reflexes!",
     "description": "A precision timing game where you try to stop the chronometer at exactly 10.00 seconds. Challenge yourself and see how close you can get!",
-    "screenshotUrls": [
-      "https://mini-games-ifdp.vercel.app/screenshot1.png"
-    ],
     "primaryCategory": "games",
     "tags": ["game", "reflex", "timing", "challenge"],
-    "heroImageUrl": "https://mini-games-ifdp.vercel.app/hero.png",
     "tagline": "Stop at 10.00!",
     "ogTitle": "Time Attack - Precision Timing Game",
     "ogDescription": "Can you stop the chronometer at exactly 10.00 seconds? Test your reflexes!",
-    "ogImageUrl": "https://mini-games-ifdp.vercel.app/og.png"
+    "splashBackgroundColor": "#020817"
   }
 }
