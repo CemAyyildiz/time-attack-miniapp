@@ -30,17 +30,19 @@ export default function TimeAttack() {
 
   return (
     <div className="space-y-8">
-      <ChronometerDisplay currentTime={currentTime} isRunning={isRunning} />
+      <ChronometerDisplay data={{ currentTime, isRunning }} />
 
       <StopButton
-        isRunning={isRunning}
-        onStart={handleStart}
-        onStop={handleStop}
-        onReset={handleReset}
-        canReset={results.length > 0}
+        data={{
+          isRunning,
+          onStart: handleStart,
+          onStop: handleStop,
+          onReset: handleReset,
+          canReset: results.length > 0,
+        }}
       />
 
-      <ResultPanel result={lastResult} />
+      <ResultPanel data={{ result: lastResult }} />
     </div>
   );
 }

@@ -2,25 +2,17 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils/cn';
+import { DIFFICULTY_COLORS, DIFFICULTY_LABELS } from '@/lib/constants/ui-constants';
 
 interface GameCardProps {
-  game: BaseGame;
-  className?: string;
+  data: {
+    game: BaseGame;
+    className?: string;
+  };
 }
 
-const DIFFICULTY_COLORS: Record<GameDifficulty, string> = {
-  easy: 'bg-green-500',
-  medium: 'bg-yellow-500',
-  hard: 'bg-red-500',
-};
-
-const DIFFICULTY_LABELS: Record<GameDifficulty, string> = {
-  easy: 'Easy',
-  medium: 'Medium',
-  hard: 'Hard',
-};
-
-export default function GameCard({ game, className }: GameCardProps) {
+export default function GameCard({ data }: GameCardProps) {
+  const { game, className } = data;
   return (
     <Link to={game.path} className="block group">
       <Card

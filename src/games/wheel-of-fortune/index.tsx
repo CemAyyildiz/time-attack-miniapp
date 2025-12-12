@@ -24,11 +24,11 @@ export default function WheelOfFortune() {
 
   return (
     <div className="space-y-8">
-      <PrizeSection totalWinnings={totalWinnings} spinCount={spinCount} />
+      <PrizeSection data={{ totalWinnings, spinCount }} />
 
       <div className="flex flex-col items-center gap-6">
-        <WheelCanvas segments={segments} currentAngle={currentAngle} />
-        <SpinButton onSpin={spin} isSpinning={isSpinning} />
+        <WheelCanvas data={{ segments, currentAngle }} />
+        <SpinButton data={{ onSpin: spin, isSpinning }} />
       </div>
 
       {selectedSegment && !isSpinning && (

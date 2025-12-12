@@ -4,10 +4,13 @@ import { Input } from '@/components/ui/input';
 import { getUsername, setUsername } from '@/lib/utils/storage';
 
 interface UsernameDialogProps {
-  onStart: () => void;
+  data: {
+    onStart: () => void;
+  };
 }
 
-export default function UsernameDialog({ onStart }: UsernameDialogProps) {
+export default function UsernameDialog({ data }: UsernameDialogProps) {
+  const { onStart } = data;
   const [username, setUsernameInput] = useState('');
   const [hasUsername, setHasUsername] = useState(false);
 

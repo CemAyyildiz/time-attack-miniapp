@@ -6,8 +6,10 @@ import { useEffect, useState } from 'react';
 import { GAME_IDS } from '@/lib/constants/game-constants';
 
 interface GameLeaderboardProps {
-  gameId: string;
-  currentScore?: number;
+  data: {
+    gameId: string;
+    currentScore?: number;
+  };
 }
 
 const RANK_ICONS = {
@@ -16,7 +18,8 @@ const RANK_ICONS = {
   3: <Award className="h-5 w-5 text-amber-600" />,
 };
 
-export default function GameLeaderboard({ gameId, currentScore }: GameLeaderboardProps) {
+export default function GameLeaderboard({ data }: GameLeaderboardProps) {
+  const { gameId, currentScore } = data;
   const [scores, setScores] = useState<LeaderboardEntry[]>([]);
   const [updateTrigger, setUpdateTrigger] = useState(0);
 

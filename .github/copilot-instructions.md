@@ -1,6 +1,3 @@
-# What is Mini-games?
-
-- Mini Games Platform: A React-based modular gaming dashboard that hosts multiple interactive mini-games accessible via a persistent Sidebar/Navbar navigation. The platform currently features two core games: a physics-based "Wheel of Fortune" where users spin to win random prizes based on probability, and a reflex-based "Time Attack" challenge where the user attempts to stop a high-precision chronometer exactly at the 10.00-second mark. The project aims to be scalable, allowing new games to be added as independent modules without affecting the core architecture.
 
 ## Form Validations
 

@@ -2,13 +2,16 @@ import { Button } from '@/components/ui/button';
 import { Play, RotateCcw } from 'lucide-react';
 
 interface GameControlsProps {
-  isPlaying: boolean;
-  gameOver: boolean;
-  onStart: () => void;
-  onReset: () => void;
+  data: {
+    isPlaying: boolean;
+    gameOver: boolean;
+    onStart: () => void;
+    onReset: () => void;
+  };
 }
 
-export default function GameControls({ isPlaying, gameOver, onStart, onReset }: GameControlsProps) {
+export default function GameControls({ data }: GameControlsProps) {
+  const { isPlaying, gameOver, onStart, onReset } = data;
   return (
     <div className="flex gap-4 justify-center">
       {!isPlaying && !gameOver && (

@@ -29,3 +29,15 @@ export const Z_INDEX = {
   POPOVER: 1060,
   TOOLTIP: 1070,
 } as const;
+
+export const DIFFICULTY_COLORS: Record<GameDifficulty, string> = {
+  easy: 'bg-green-500',
+  medium: 'bg-yellow-500',
+  hard: 'bg-red-500',
+};
+
+export const DIFFICULTY_LABELS: Record<GameDifficulty, string> = {
+  easy: 'Easy',
+  medium: 'Medium',
+  hard: 'Hard',
+};

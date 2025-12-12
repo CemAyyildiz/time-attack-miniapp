@@ -1,11 +1,14 @@
 import { Button } from '@/components/ui/button';
 
 interface SpinButtonProps {
-  onSpin: () => void;
-  isSpinning: boolean;
+  data: {
+    onSpin: () => void;
+    isSpinning: boolean;
+  };
 }
 
-export default function SpinButton({ onSpin, isSpinning }: SpinButtonProps) {
+export default function SpinButton({ data }: SpinButtonProps) {
+  const { onSpin, isSpinning } = data;
   return (
     <div className="flex justify-center">
       <Button

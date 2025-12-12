@@ -1,12 +1,15 @@
 import { useRef, useEffect } from 'react';
 
 interface WheelCanvasProps {
-  segments: WheelSegment[];
-  currentAngle: number;
-  size?: number;
+  data: {
+    segments: WheelSegment[];
+    currentAngle: number;
+    size?: number;
+  };
 }
 
-export default function WheelCanvas({ segments, currentAngle, size = 400 }: WheelCanvasProps) {
+export default function WheelCanvas({ data }: WheelCanvasProps) {
+  const { segments, currentAngle, size = 400 } = data;
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

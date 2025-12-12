@@ -2,20 +2,17 @@ import { Button } from '@/components/ui/button';
 import { Play, Square, RotateCcw } from 'lucide-react';
 
 interface StopButtonProps {
-  isRunning: boolean;
-  onStart: () => void;
-  onStop: () => void;
-  onReset: () => void;
-  canReset: boolean;
+  data: {
+    isRunning: boolean;
+    onStart: () => void;
+    onStop: () => void;
+    onReset: () => void;
+    canReset: boolean;
+  };
 }
 
-export default function StopButton({ 
-  isRunning, 
-  onStart, 
-  onStop, 
-  onReset,
-  canReset 
-}: StopButtonProps) {
+export default function StopButton({ data }: StopButtonProps) {
+  const { isRunning, onStart, onStop, onReset, canReset } = data;
   return (
     <div className="flex gap-4 justify-center">
       {!isRunning && !canReset && (

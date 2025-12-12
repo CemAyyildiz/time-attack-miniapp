@@ -2,11 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatScore } from '@/lib/utils/format';
 
 interface PrizeSectionProps {
-  totalWinnings: number;
-  spinCount: number;
+  data: {
+    totalWinnings: number;
+    spinCount: number;
+  };
 }
 
-export default function PrizeSection({ totalWinnings, spinCount }: PrizeSectionProps) {
+export default function PrizeSection({ data }: PrizeSectionProps) {
+  const { totalWinnings, spinCount } = data;
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <Card className="border-4 border-primary">

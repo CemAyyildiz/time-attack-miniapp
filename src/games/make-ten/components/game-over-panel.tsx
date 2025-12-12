@@ -2,11 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatScore } from '@/lib/utils/format';
 
 interface GameOverPanelProps {
-  score: number;
-  gameOver: boolean;
+  data: {
+    score: number;
+    gameOver: boolean;
+  };
 }
 
-export default function GameOverPanel({ score, gameOver }: GameOverPanelProps) {
+export default function GameOverPanel({ data }: GameOverPanelProps) {
+  const { score, gameOver } = data;
   if (!gameOver) return null;
 
   return (

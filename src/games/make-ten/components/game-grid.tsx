@@ -1,24 +1,19 @@
 import { cn } from '@/lib/utils/cn';
 
 interface GameGridProps {
-  grid: number[][];
-  selectedCells: { row: number; col: number }[];
-  onCellEnter: (row: number, col: number) => void;
-  onMouseDown: (row: number, col: number) => void;
-  onMouseUp: () => void;
-  isPlaying: boolean;
-  isDragging: boolean;
+  data: {
+    grid: number[][];
+    selectedCells: { row: number; col: number }[];
+    onCellEnter: (row: number, col: number) => void;
+    onMouseDown: (row: number, col: number) => void;
+    onMouseUp: () => void;
+    isPlaying: boolean;
+    isDragging: boolean;
+  };
 }
 
-export default function GameGrid({ 
-  grid, 
-  selectedCells, 
-  onCellEnter, 
-  onMouseDown, 
-  onMouseUp, 
-  isPlaying,
-  isDragging 
-}: GameGridProps) {
+export default function GameGrid({ data }: GameGridProps) {
+  const { grid, selectedCells, onCellEnter, onMouseDown, onMouseUp, isPlaying, isDragging } = data;
   const isCellSelected = (row: number, col: number) => {
     return selectedCells.some((cell) => cell.row === row && cell.col === col);
   };

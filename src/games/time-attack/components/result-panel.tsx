@@ -4,10 +4,13 @@ import { getAccuracyLevel } from '../utils/time-calculation';
 import { formatTime } from '@/lib/utils/format';
 
 interface ResultPanelProps {
-  result: TimeAttackResult | null;
+  data: {
+    result: TimeAttackResult | null;
+  };
 }
 
-export default function ResultPanel({ result }: ResultPanelProps) {
+export default function ResultPanel({ data }: ResultPanelProps) {
+  const { result } = data;
   if (!result) return null;
 
   const accuracyLevel = getAccuracyLevel(result.difference);

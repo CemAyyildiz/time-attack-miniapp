@@ -54,8 +54,8 @@ export default function MakeTen() {
   if (!hasStarted) {
     return (
       <div className="space-y-8">
-        <UsernameDialog onStart={handleStart} />
-        <GameLeaderboard gameId={GAME_IDS.MAKE_TEN} />
+        <UsernameDialog data={{ onStart: handleStart }} />
+        <GameLeaderboard data={{ gameId: GAME_IDS.MAKE_TEN }} />
       </div>
     );
   }
@@ -68,29 +68,33 @@ export default function MakeTen() {
         </p>
       </div>
 
-      <GameStats score={score} combo={combo} timeLeft={timeLeft} />
+      <GameStats data={{ score, combo, timeLeft }} />
 
       <GameGrid
-        grid={grid}
-        selectedCells={selectedCells}
-        onCellEnter={selectCell}
-        onMouseDown={startDrag}
-        onMouseUp={endDrag}
-        isPlaying={isPlaying}
-        isDragging={isDragging}
+        data={{
+          grid,
+          selectedCells,
+          onCellEnter: selectCell,
+          onMouseDown: startDrag,
+          onMouseUp: endDrag,
+          isPlaying,
+          isDragging,
+        }}
       />
 
       <GameControls
-        isPlaying={isPlaying}
-        gameOver={gameOver}
-        onStart={startGame}
-        onReset={handleReset}
+        data={{
+          isPlaying,
+          gameOver,
+          onStart: startGame,
+          onReset: handleReset,
+        }}
       />
 
-      <GameOverPanel score={score} gameOver={gameOver} />
+      <GameOverPanel data={{ score, gameOver }} />
 
       {gameOver && (
-        <GameLeaderboard gameId={GAME_IDS.MAKE_TEN} currentScore={score} />
+        <GameLeaderboard data={{ gameId: GAME_IDS.MAKE_TEN, currentScore: score }} />
       )}
     </div>
   );

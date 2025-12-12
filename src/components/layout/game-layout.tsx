@@ -5,12 +5,15 @@ import { Button } from '@/components/ui/button';
 import { ROUTES } from '@/lib/constants/routes';
 
 interface GameLayoutProps {
-  children: ReactNode;
-  title: string;
-  description?: string;
+  data: {
+    children: ReactNode;
+    title: string;
+    description?: string;
+  };
 }
 
-export default function GameLayout({ children, title, description }: GameLayoutProps) {
+export default function GameLayout({ data }: GameLayoutProps) {
+  const { children, title, description } = data;
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">

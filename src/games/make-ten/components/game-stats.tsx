@@ -4,12 +4,15 @@ import { formatScore } from '@/lib/utils/format';
 import { MAKE_TEN_CONFIG } from '@/lib/constants/game-constants';
 
 interface GameStatsProps {
-  score: number;
-  combo: number;
-  timeLeft: number;
+  data: {
+    score: number;
+    combo: number;
+    timeLeft: number;
+  };
 }
 
-export default function GameStats({ score, combo, timeLeft }: GameStatsProps) {
+export default function GameStats({ data }: GameStatsProps) {
+  const { score, combo, timeLeft } = data;
   const timeInSeconds = (timeLeft / 1000).toFixed(1);
   const progress = (timeLeft / MAKE_TEN_CONFIG.TIMER_DURATION) * 100;
 

@@ -3,11 +3,14 @@ import { cn } from '@/lib/utils/cn';
 import { TIME_ATTACK_CONFIG } from '@/lib/constants/game-constants';
 
 interface ChronometerDisplayProps {
-  currentTime: number;
-  isRunning: boolean;
+  data: {
+    currentTime: number;
+    isRunning: boolean;
+  };
 }
 
-export default function ChronometerDisplay({ currentTime, isRunning }: ChronometerDisplayProps) {
+export default function ChronometerDisplay({ data }: ChronometerDisplayProps) {
+  const { currentTime, isRunning } = data;
   const targetSeconds = TIME_ATTACK_CONFIG.TARGET_TIME / 1000;
 
   return (
