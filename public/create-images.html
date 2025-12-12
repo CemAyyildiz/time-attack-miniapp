@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Base Mini-App Images</title>
+</head>
+<body>
+    <h2>Image Generator for Time Attack Mini-App</h2>
+    <button onclick="generateIcon()">Download Icon (1024x1024)</button>
+    <button onclick="generateSplash()">Download Splash (200x200)</button>
+    
+    <canvas id="canvas" style="border: 1px solid #ccc; margin-top: 20px;"></canvas>
+
+    <script>
+        function generateIcon() {
+            const canvas = document.getElementById('canvas');
+            canvas.width = 1024;
+            canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, 1024, 1024);
+            gradient.addColorStop(0, '#3b82f6');
+            gradient.addColorStop(1, '#1e40af');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1024, 1024);
+            
+            // Timer display
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(256, 384, 512, 256);
+            
+            ctx.fillStyle = '#00ff00';
+            ctx.font = 'bold 140px monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('10.00', 512, 512);
+            
+            // Title
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 80px sans-serif';
+            ctx.fillText('TIME ATTACK', 512, 256);
+            
+            // Download
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'icon.png';
+                a.click();
+            });
+        }
+        
+        function generateSplash() {
+            const canvas = document.getElementById('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            const gradient = ctx.createLinearGradient(0, 0, 200, 200);
+            gradient.addColorStop(0, '#3b82f6');
+            gradient.addColorStop(1, '#1e40af');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 200, 200);
+            
+            // Timer
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(40, 70, 120, 60);
+            
+            ctx.fillStyle = '#00ff00';
+            ctx.font = 'bold 32px monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('10.00', 100, 100);
+            
+            // Download
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'splash.png';
+                a.click();
+            });
+        }
+    </script>
+</body>
+</html>
