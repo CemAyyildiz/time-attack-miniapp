@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { calculateAccuracy, calculateDifference, isSuccess } from '../utils/time-calculation';
+import { calculateAccuracy, calculateDifference, calculateScore, isSuccess } from '../utils/time-calculation';
 
 export function useAccuracyCheck() {
   const [results, setResults] = useState<TimeAttackResult[]>([]);
@@ -8,12 +8,14 @@ export function useAccuracyCheck() {
   const checkAccuracy = useCallback((stoppedTime: number): TimeAttackResult => {
     const difference = calculateDifference(stoppedTime);
     const accuracy = calculateAccuracy(stoppedTime);
+    const score = calculateScore(stoppedTime);
     const success = isSuccess(stoppedTime);
 
     const result: TimeAttackResult = {
       stoppedTime,
       difference,
       accuracy,
+      score,
       isSuccess: success,
       timestamp: Date.now(),
     };

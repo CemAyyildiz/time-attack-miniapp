@@ -30,7 +30,7 @@ export default function ResultPanel({ data }: ResultPanelProps) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        <div className="grid grid-cols-2 gap-4 text-center">
+        <div className="grid grid-cols-3 gap-4 text-center">
           <div className="pixel-corners border-2 border-primary p-3 bg-primary/5">
             <p className="text-[10px] text-muted-foreground uppercase tracking-widest">YOUR TIME</p>
             <p className="text-xl font-bold">{formatTime(result.stoppedTime)}</p>
@@ -38,6 +38,10 @@ export default function ResultPanel({ data }: ResultPanelProps) {
           <div className="pixel-corners border-2 border-secondary p-3 bg-secondary/5">
             <p className="text-[10px] text-muted-foreground uppercase tracking-widest">DIFFERENCE</p>
             <p className="text-xl font-bold">{(result.difference / 1000).toFixed(2)}s</p>
+          </div>
+          <div className="pixel-corners border-2 border-accent p-3 bg-accent/5">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">SCORE</p>
+            <p className="text-xl font-bold text-primary">{result.score}</p>
           </div>
         </div>
       </CardContent>

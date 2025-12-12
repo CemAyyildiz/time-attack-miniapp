@@ -10,6 +10,7 @@ declare interface TimeAttackResult {
   stoppedTime: number;
   difference: number;
   accuracy: number; // percentage
+  score: number; // onchain score points
   isSuccess: boolean;
   timestamp: number;
 }
