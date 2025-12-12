@@ -1,0 +1,5 @@
+# Global Custom Hooks
+
+Application-wide custom React hooks.
+
+Examples: useGameState, useLeaderboard, useUserScore

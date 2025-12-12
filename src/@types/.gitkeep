@@ -1,0 +1,7 @@
+# Type Definitions
+
+All global TypeScript type definitions go here.
+
+Files should be named: `kebab-case.d.ts`
+
+No imports needed - types are globally available.

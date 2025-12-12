@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time Attack - Precision Timing Game</title>
+    
+    <!-- Farcaster Mini App Metadata -->
+    <meta name="fc:miniapp" content='{
+      "version":"next",
+      "imageUrl":"https://mini-games-cem.vercel.app/embed-image.png",
+      "button":{
+        "title":"Play Now",
+        "action":{
+          "type":"launch_miniapp",
+          "name":"Time Attack",
+          "url":"https://mini-games-cem.vercel.app"
+        }
+      }
+    }' />
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Time Attack - Precision Timing Game" />
+    <meta property="og:description" content="Can you stop the chronometer at exactly 10.00 seconds? Test your reflexes!" />
+    <meta property="og:image" content="https://mini-games-cem.vercel.app/og.png" />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+# Wheel of Fortune Game Module
+
+Physics-based spinning wheel game with prize probability system.
+
+Main component: index.tsx

@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.1 76.2% 36.3%;
+    --radius: 0rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.1 76.2% 36.3%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Press Start 2P', cursive;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+  
+  button,
+  input,
+  select,
+  textarea {
+    font-family: 'Press Start 2P', cursive;
+  }
+}
+
+@layer components {
+  .pixel-corners {
+    clip-path: polygon(
+      0 4px,
+      4px 4px,
+      4px 0,
+      calc(100% - 4px) 0,
+      calc(100% - 4px) 4px,
+      100% 4px,
+      100% calc(100% - 4px),
+      calc(100% - 4px) calc(100% - 4px),
+      calc(100% - 4px) 100%,
+      4px 100%,
+      4px calc(100% - 4px),
+      0 calc(100% - 4px)
+    );
+  }
+  
+  .retro-shadow {
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  .pixel-border {
+    border: 4px solid currentColor;
+    border-image: repeating-linear-gradient(
+      90deg,
+      currentColor 0,
+      currentColor 4px,
+      transparent 4px,
+      transparent 8px
+    ) 4;
+  }
+}

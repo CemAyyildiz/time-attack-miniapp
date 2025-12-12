@@ -1,0 +1,5 @@
+# Time Attack Game Module
+
+Reflex-based chronometer challenge - stop at exactly 10.00 seconds.
+
+Main component: index.tsx

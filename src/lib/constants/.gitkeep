@@ -1,0 +1,5 @@
+# Constants
+
+All magic strings and numbers should be replaced with named constants here.
+
+Use descriptive names and group related constants together.

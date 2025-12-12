@@ -1,0 +1,5 @@
+# Common Components
+
+Reusable components shared across the application.
+
+Examples: LoadingSpinner, ErrorMessage, GameCard, etc.

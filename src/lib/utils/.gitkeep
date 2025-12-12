@@ -1,0 +1,5 @@
+# Utility Functions
+
+Helper functions and utilities.
+
+Examples: cn (Tailwind class merger), formatters, storage helpers

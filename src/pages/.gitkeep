@@ -1,0 +1,5 @@
+# Pages
+
+Route-level page components.
+
+Examples: home.tsx, wheel-of-fortune-page.tsx, time-attack-page.tsx, leaderboard.tsx

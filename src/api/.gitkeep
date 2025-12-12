@@ -1,0 +1,5 @@
+# API Layer
+
+React Query hooks, mutations, and API client configuration.
+
+All data fetching uses React Query with proper error and loading state handling.

@@ -1,0 +1,5 @@
+# shadcn/ui Components
+
+All shadcn/ui components will be placed here.
+
+Install via: `npx shadcn-ui@latest add [component-name]`
