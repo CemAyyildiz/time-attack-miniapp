@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { getAccuracyLevel } from '../utils/time-calculation';
 import { formatTime } from '@/lib/utils/format';
 import { useWallet, useSubmitScore, useRemainingFreeGames } from '@/lib/blockchain/hooks';
-import { Upload, Trophy, Loader2, Coins } from 'lucide-react';
+import { Upload, Trophy, Loader2 } from 'lucide-react';
 import { parseEther } from 'viem';
 
 interface ResultPanelProps {

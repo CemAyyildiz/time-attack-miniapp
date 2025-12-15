@@ -58,6 +58,25 @@ export const GAME_CONTRACT_ABI = [
         "type": "address"
       }
     ],
+    "name": "getPlayerRank",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      }
+    ],
     "name": "getPlayerScores",
     "outputs": [
       {
