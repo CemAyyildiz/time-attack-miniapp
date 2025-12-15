@@ -13,3 +13,11 @@ interface LeaderboardEntry {
     [key: string]: unknown;
   };
 }
+
+interface BlockchainScoreEntry {
+  player: string;
+  score: bigint;
+  time: bigint;
+  timestamp: bigint;
+  isPerfect: boolean;
+}
