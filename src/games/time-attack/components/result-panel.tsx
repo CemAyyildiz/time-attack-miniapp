@@ -3,8 +3,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getAccuracyLevel } from '../utils/time-calculation';
 import { formatTime } from '@/lib/utils/format';
-import { useWallet, useSubmitScore } from '@/lib/blockchain/hooks';
-import { Upload, Trophy, Loader2 } from 'lucide-react';
+import { useWallet, useSubmitScore, useRemainingFreeGames } from '@/lib/blockchain/hooks';
+import { Upload, Trophy, Loader2, Coins } from 'lucide-react';
+import { parseEther } from 'viem';
 
 interface ResultPanelProps {
   data: {
@@ -14,8 +15,9 @@ interface ResultPanelProps {
 
 export default function ResultPanel({ data }: ResultPanelProps) {
   const { result } = data;
-  const { isConnected } = useWallet();
+  const { address, isConnected } = useWallet();
   const { submitScore, isPending, isConfirming, isSuccess, reset } = useSubmitScore();
+  const remainingFreeGames = useRemainingFreeGames(address);
 
   // Reset mutation state when result changes
   if (!result && isSuccess) {
@@ -25,10 +27,15 @@ export default function ResultPanel({ data }: ResultPanelProps) {
   if (!result) return null;
 
   const accuracyLevel = getAccuracyLevel(result.difference);
+  const isPerfect = result.score === 100;
+  const needsPayment = remainingFreeGames === 0;
+  const gameFee = parseEther('0.000003'); // ~$0.01
+  const badgeFee = parseEther('0.00003'); // ~$0.10
+  const totalFee = isPerfect ? badgeFee : (needsPayment ? gameFee : BigInt(0));
 
   const handleSubmit = () => {
     if (result) {
-      submitScore(result.score, result.stoppedTime);
+      submitScore(result.score, result.stoppedTime, totalFee);
     }
   };
 
@@ -63,33 +70,48 @@ export default function ResultPanel({ data }: ResultPanelProps) {
         </div>
 
         {isConnected && result.score > 0 && (
-          <div className="flex justify-center">
-            {isSuccess ? (
-              <div className="text-center space-y-2 animate-bounce">
-                <Trophy className="h-8 w-8 text-primary mx-auto" />
-                <p className="text-xs text-primary uppercase tracking-widest">
-                  ✅ Saved Onchain!
-                </p>
-              </div>
-            ) : (
-              <Button
-                onClick={handleSubmit}
-                disabled={isPending || isConfirming}
-                className="min-w-[200px] text-xs uppercase tracking-widest"
+          <div className="space-y-3">
+            {/* Fee Badge - always show */}
+            <div className="text-center">
+              <Badge 
+                variant={totalFee > 0 ? "default" : "secondary"}
+                className="text-xs uppercase tracking-wider"
               >
-                {isPending || isConfirming ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {isPending ? 'Confirm in wallet...' : 'Submitting...'}
-                  </>
-                ) : (
-                  <>
-                    <Upload className="mr-2 h-4 w-4" />
-                    Submit to Blockchain
-                  </>
-                )}
-              </Button>
-            )}
+                {isPerfect 
+                  ? '💎 Perfect Badge: $0.10' 
+                  : (needsPayment ? '💰 Fee: $0.01' : '🆓 FREE')}
+              </Badge>
+            </div>
+
+            {/* Submit Button - always same text */}
+            <div className="flex justify-center">
+              {isSuccess ? (
+                <div className="text-center space-y-2 animate-bounce">
+                  <Trophy className="h-8 w-8 text-primary mx-auto" />
+                  <p className="text-xs text-primary uppercase tracking-widest">
+                    ✅ Saved Onchain!
+                  </p>
+                </div>
+              ) : (
+                <Button
+                  onClick={handleSubmit}
+                  disabled={isPending || isConfirming}
+                  className="min-w-[200px] text-xs uppercase tracking-widest"
+                >
+                  {isPending || isConfirming ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      {isPending ? 'Confirm in wallet...' : 'Submitting...'}
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="mr-2 h-4 w-4" />
+                      Submit to Blockchain
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
           </div>
         )}
 

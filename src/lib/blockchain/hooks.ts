@@ -5,12 +5,13 @@ export function useSubmitScore() {
   const { writeContract, data: hash, isPending, reset } = useWriteContract();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
-  const submitScore = (score: number, time: number) => {
+  const submitScore = (score: number, time: number, value?: bigint) => {
     writeContract({
       address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
       abi: GAME_CONTRACT_ABI,
       functionName: 'submitScore',
       args: [BigInt(Math.floor(score)), BigInt(Math.floor(time))],
+      value: value || BigInt(0), // Payment amount
     });
   };
 
@@ -102,4 +103,15 @@ export function usePlayerRank(address?: string) {
   });
 
   return rank ? Number(rank) : 0;
+}
+
+export function useRemainingFreeGames(address?: string) {
+  const { data: remaining } = useReadContract({
+    address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
+    abi: GAME_CONTRACT_ABI,
+    functionName: 'getRemainingFreeGames',
+    args: address ? [address as `0x${string}`] : undefined,
+  });
+
+  return remaining ? Number(remaining) : 0;
 }

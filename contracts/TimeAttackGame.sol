@@ -9,6 +9,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * @dev On-chain Time Attack game with score recording and Perfect Badge NFT
  */
 contract TimeAttackGame is ERC721, Ownable {
+    // Pricing (in wei)
+    uint256 public constant GAME_FEE = 0.000003 ether; // ~$0.01
+    uint256 public constant PERFECT_BADGE_FEE = 0.00003 ether; // ~$0.10
+    uint256 public constant FREE_GAMES_PER_DAY = 5;
+    
     // Score entry structure
     struct ScoreEntry {
         address player;
@@ -28,6 +33,7 @@ contract TimeAttackGame is ERC721, Ownable {
     mapping(address => uint256) public playerBestScore;
     mapping(address => bool) public hasPerfectBadge;
     mapping(uint256 => address) public badgeOwner;
+    mapping(address => mapping(uint256 => uint256)) public dailyGamesPlayed; // player => day => games
     
     // Leaderboard (top 100 scores)
     ScoreEntry[] public globalLeaderboard;
@@ -59,9 +65,23 @@ contract TimeAttackGame is ERC721, Ownable {
      * @param _score Points earned (0-100)
      * @param _time Time stopped in milliseconds
      */
-    function submitScore(uint256 _score, uint256 _time) external {
+    function submitScore(uint256 _score, uint256 _time) external payable {
         require(_score <= 100, "Invalid score");
         require(_time > 0, "Invalid time");
+        
+        // Calculate current day (days since epoch)
+        uint256 currentDay = block.timestamp / 1 days;
+        
+        // Check daily free games
+        uint256 todayGames = dailyGamesPlayed[msg.sender][currentDay];
+        
+        // After 5 free games, require fee
+        if (todayGames >= FREE_GAMES_PER_DAY) {
+            require(msg.value >= GAME_FEE, "Game fee required after 5 daily games");
+        }
+        
+        // Increment daily counter
+        dailyGamesPlayed[msg.sender][currentDay]++;
         
         bool isPerfect = _score == 100;
         
@@ -87,10 +107,34 @@ contract TimeAttackGame is ERC721, Ownable {
         
         // Mint Perfect Badge if perfect score and doesn't have one
         if (isPerfect && !hasPerfectBadge[msg.sender]) {
+            require(msg.value >= PERFECT_BADGE_FEE, "Perfect Badge mint fee required");
             _mintPerfectBadge(msg.sender);
         }
         
         emit ScoreSubmitted(msg.sender, _score, _time, isPerfect, block.timestamp);
+    }
+    
+    /**
+     * @dev Get player's remaining free games for today
+     */
+    function getRemainingFreeGames(address player) external view returns (uint256) {
+        uint256 currentDay = block.timestamp / 1 days;
+        uint256 todayGames = dailyGamesPlayed[player][currentDay];
+        
+        if (todayGames >= FREE_GAMES_PER_DAY) {
+            return 0;
+        }
+        
+        return FREE_GAMES_PER_DAY - todayGames;
+    }
+    
+    /**
+     * @dev Withdraw collected fees (owner only)
+     */
+    function withdraw() external onlyOwner {
+        uint256 balance = address(this).balance;
+        require(balance > 0, "No funds to withdraw");
+        payable(owner()).transfer(balance);
     }
 
     /**
