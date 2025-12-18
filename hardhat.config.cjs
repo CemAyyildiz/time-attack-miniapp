@@ -25,6 +25,12 @@ module.exports = {
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 8453,
     },
+    // Frame ile güvenli deployment (Private key gerekmez)
+    baseFrame: {
+      url: "http://127.0.0.1:1248", // Frame RPC endpoint
+      chainId: 8453,
+      timeout: 60000,
+    },
   },
   etherscan: {
     apiKey: {

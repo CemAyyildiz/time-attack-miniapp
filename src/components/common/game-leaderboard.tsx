@@ -4,6 +4,7 @@ import { getGameLeaderboard } from '@/lib/utils/storage';
 import { formatScore, formatTime } from '@/lib/utils/format';
 import { useEffect, useState } from 'react';
 import { GAME_IDS } from '@/lib/constants/game-constants';
+import { LEADERBOARD_CONFIG } from '@/lib/constants/blockchain-constants';
 
 interface GameLeaderboardProps {
   data: {
@@ -24,7 +25,7 @@ export default function GameLeaderboard({ data }: GameLeaderboardProps) {
   const [updateTrigger, setUpdateTrigger] = useState(0);
 
   useEffect(() => {
-    setScores(getGameLeaderboard(gameId, 5));
+    setScores(getGameLeaderboard(gameId, LEADERBOARD_CONFIG.DEFAULT_DISPLAY_COUNT));
   }, [gameId, currentScore, updateTrigger]);
 
   useEffect(() => {

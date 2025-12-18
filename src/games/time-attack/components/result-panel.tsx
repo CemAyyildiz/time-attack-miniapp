@@ -3,9 +3,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getAccuracyLevel } from '../utils/time-calculation';
 import { formatTime } from '@/lib/utils/format';
-import { useWallet, useSubmitScore, useRemainingFreeGames } from '@/lib/blockchain/hooks';
+import { useWallet, useSubmitScore } from '@/lib/blockchain/hooks';
 import { Upload, Trophy, Loader2 } from 'lucide-react';
 import { parseEther } from 'viem';
+import { CONTRACT_FEES, SCORE_LIMITS } from '@/lib/constants/blockchain-constants';
 
 interface ResultPanelProps {
   data: {
@@ -15,9 +16,8 @@ interface ResultPanelProps {
 
 export default function ResultPanel({ data }: ResultPanelProps) {
   const { result } = data;
-  const { address, isConnected } = useWallet();
+  const { isConnected } = useWallet();
   const { submitScore, isPending, isConfirming, isSuccess, reset } = useSubmitScore();
-  const remainingFreeGames = useRemainingFreeGames(address);
 
   // Reset mutation state when result changes
   if (!result && isSuccess) {
@@ -27,15 +27,13 @@ export default function ResultPanel({ data }: ResultPanelProps) {
   if (!result) return null;
 
   const accuracyLevel = getAccuracyLevel(result.difference);
-  const isPerfect = result.score === 100;
-  const needsPayment = remainingFreeGames === 0;
-  const gameFee = parseEther('0.000003'); // ~$0.01
-  const badgeFee = parseEther('0.00003'); // ~$0.10
-  const totalFee = isPerfect ? badgeFee : (needsPayment ? gameFee : BigInt(0));
+  const isPerfect = result.score === SCORE_LIMITS.PERFECT;
+  const badgeFee = parseEther(CONTRACT_FEES.PERFECT_BADGE);
+  const paymentValue = isPerfect ? badgeFee : BigInt(0);
 
   const handleSubmit = () => {
     if (result) {
-      submitScore(result.score, result.stoppedTime, totalFee);
+      submitScore(result.score, result.stoppedTime, paymentValue);
     }
   };
 
@@ -69,21 +67,21 @@ export default function ResultPanel({ data }: ResultPanelProps) {
           </div>
         </div>
 
-        {isConnected && result.score > 0 && (
+        {isConnected && result.score > 0 ? (
           <div className="space-y-3">
-            {/* Fee Badge - always show */}
-            <div className="text-center">
-              <Badge 
-                variant={totalFee > 0 ? "default" : "secondary"}
-                className="text-xs uppercase tracking-wider"
-              >
-                {isPerfect 
-                  ? '💎 Perfect Badge: $0.10' 
-                  : (needsPayment ? '💰 Fee: $0.01' : '🆓 FREE')}
-              </Badge>
-            </div>
+            {/* Fee Badge - only show for perfect score */}
+            {isPerfect ? (
+              <div className="text-center">
+                <Badge 
+                  variant="default"
+                  className="text-xs uppercase tracking-wider bg-yellow-500 text-white"
+                >
+                  💎 Perfect Badge: $0.10
+                </Badge>
+              </div>
+            ) : null}
 
-            {/* Submit Button - always same text */}
+            {/* Submit Button */}
             <div className="flex justify-center">
               {isSuccess ? (
                 <div className="text-center space-y-2 animate-bounce">
@@ -113,13 +111,13 @@ export default function ResultPanel({ data }: ResultPanelProps) {
               )}
             </div>
           </div>
-        )}
+        ) : null}
 
-        {!isConnected && result.score > 0 && (
+        {!isConnected && result.score > 0 ? (
           <p className="text-center text-[10px] text-muted-foreground uppercase tracking-widest">
             Connect wallet to save score onchain
           </p>
-        )}
+        ) : null}
       </CardContent>
     </Card>
   );

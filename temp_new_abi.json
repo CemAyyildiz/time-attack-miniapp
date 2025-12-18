@@ -1,6 +1,4 @@
-export const TIMEATTACK_CONTRACT_ADDRESS = import.meta.env.VITE_TIMEATTACK_CONTRACT_ADDRESS || '';
-
-export const GAME_CONTRACT_ABI = [
+[
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -951,4 +949,4 @@ export const GAME_CONTRACT_ABI = [
     "stateMutability": "nonpayable",
     "type": "function"
   }
-] as const;
+]

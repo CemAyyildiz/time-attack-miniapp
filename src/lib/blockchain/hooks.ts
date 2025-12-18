@@ -1,17 +1,30 @@
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi';
 import { TIMEATTACK_CONTRACT_ADDRESS, GAME_CONTRACT_ABI } from './contract';
 
+const BASE_MAINNET_CHAIN_ID = 8453;
+
 export function useSubmitScore() {
   const { writeContract, data: hash, isPending, reset } = useWriteContract();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { chain } = useAccount();
 
   const submitScore = (score: number, time: number, value?: bigint) => {
+    // CRITICAL: Only allow transactions on Base mainnet
+    if (chain?.id !== BASE_MAINNET_CHAIN_ID) {
+      console.error('Wrong network! Must be on Base mainnet (8453). Current:', chain?.id);
+      alert('Please switch to Base Mainnet!');
+      return;
+    }
+
+    console.log('Submitting to Base mainnet (8453):', { score, time, value });
+    
     writeContract({
       address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
       abi: GAME_CONTRACT_ABI,
       functionName: 'submitScore',
       args: [BigInt(Math.floor(score)), BigInt(Math.floor(time))],
       value: value || BigInt(0), // Payment amount
+      chainId: BASE_MAINNET_CHAIN_ID,
     });
   };
 
@@ -103,15 +116,4 @@ export function usePlayerRank(address?: string) {
   });
 
   return rank ? Number(rank) : 0;
-}
-
-export function useRemainingFreeGames(address?: string) {
-  const { data: remaining } = useReadContract({
-    address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-    abi: GAME_CONTRACT_ABI,
-    functionName: 'getRemainingFreeGames',
-    args: address ? [address as `0x${string}`] : undefined,
-  });
-
-  return remaining ? Number(remaining) : 0;
 }

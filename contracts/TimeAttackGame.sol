@@ -10,9 +10,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  */
 contract TimeAttackGame is ERC721, Ownable {
     // Pricing (in wei)
-    uint256 public constant GAME_FEE = 0.000003 ether; // ~$0.01
     uint256 public constant PERFECT_BADGE_FEE = 0.00003 ether; // ~$0.10
-    uint256 public constant FREE_GAMES_PER_DAY = 5;
+    
+    // Payment recipient
+    address public constant PAYMENT_RECIPIENT = 0xcf87bf72d82a60A6b700130cA05188bDD89dA501;
     
     // Score entry structure
     struct ScoreEntry {
@@ -33,7 +34,6 @@ contract TimeAttackGame is ERC721, Ownable {
     mapping(address => uint256) public playerBestScore;
     mapping(address => bool) public hasPerfectBadge;
     mapping(uint256 => address) public badgeOwner;
-    mapping(address => mapping(uint256 => uint256)) public dailyGamesPlayed; // player => day => games
     
     // Leaderboard (top 100 scores)
     ScoreEntry[] public globalLeaderboard;
@@ -70,20 +70,18 @@ contract TimeAttackGame is ERC721, Ownable {
         require(_time > 0, "Invalid time");
         
         // Calculate current day (days since epoch)
-        uint256 currentDay = block.timestamp / 1 days;
-        
-        // Check daily free games
-        uint256 todayGames = dailyGamesPlayed[msg.sender][currentDay];
-        
-        // After 5 free games, require fee
-        if (todayGames >= FREE_GAMES_PER_DAY) {
-            require(msg.value >= GAME_FEE, "Game fee required after 5 daily games");
-        }
-        
-        // Increment daily counter
-        dailyGamesPlayed[msg.sender][currentDay]++;
-        
         bool isPerfect = _score == 100;
+        
+        // If perfect score and wants to mint badge, require fee
+        if (isPerfect && !hasPerfectBadge[msg.sender]) {
+            require(msg.value >= PERFECT_BADGE_FEE, "Perfect Badge mint fee required");
+            
+            // Send fee directly to payment recipient using call pattern
+            if (msg.value > 0) {
+                (bool success, ) = payable(PAYMENT_RECIPIENT).call{value: msg.value}("");
+                require(success, "Payment transfer failed");
+            }
+        }
         
         ScoreEntry memory entry = ScoreEntry({
             player: msg.sender,
@@ -107,34 +105,10 @@ contract TimeAttackGame is ERC721, Ownable {
         
         // Mint Perfect Badge if perfect score and doesn't have one
         if (isPerfect && !hasPerfectBadge[msg.sender]) {
-            require(msg.value >= PERFECT_BADGE_FEE, "Perfect Badge mint fee required");
             _mintPerfectBadge(msg.sender);
         }
         
         emit ScoreSubmitted(msg.sender, _score, _time, isPerfect, block.timestamp);
-    }
-    
-    /**
-     * @dev Get player's remaining free games for today
-     */
-    function getRemainingFreeGames(address player) external view returns (uint256) {
-        uint256 currentDay = block.timestamp / 1 days;
-        uint256 todayGames = dailyGamesPlayed[player][currentDay];
-        
-        if (todayGames >= FREE_GAMES_PER_DAY) {
-            return 0;
-        }
-        
-        return FREE_GAMES_PER_DAY - todayGames;
-    }
-    
-    /**
-     * @dev Withdraw collected fees (owner only)
-     */
-    function withdraw() external onlyOwner {
-        uint256 balance = address(this).balance;
-        require(balance > 0, "No funds to withdraw");
-        payable(owner()).transfer(balance);
     }
 
     /**
@@ -243,7 +217,7 @@ contract TimeAttackGame is ERC721, Ownable {
     /**
      * @dev Override tokenURI to return badge metadata
      */
-    function tokenURI(uint256 tokenId) public pure override returns (string memory) {
+    function tokenURI(uint256 /* tokenId */) public pure override returns (string memory) {
         return string(abi.encodePacked(
             "data:application/json;base64,",
             "eyJuYW1lIjogIlBlcmZlY3QgVGltZSBBdHRhY2sgQmFkZ2UiLCAiZGVzY3JpcHRpb24iOiAiQWNoaWV2ZWQgcGVyZmVjdCAxMC4wMCBzZWNvbmRzIGluIFRpbWUgQXR0YWNrISIsICJpbWFnZSI6ICJpcGZzOi8vUW1QZXJmZWN0QmFkZ2UiLCAiYXR0cmlidXRlcyI6IFt7InRyYWl0X3R5cGUiOiAiQWNoaWV2ZW1lbnQiLCAidmFsdWUiOiAiUGVyZmVjdCAxMC4wMHMifV19"

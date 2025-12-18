@@ -9,7 +9,7 @@ export default function Leaderboard() {
           ★★ ONCHAIN LEADERBOARD ★★
         </h1>
         <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
-          [ BASE SEPOLIA TESTNET ]
+          [ BASE MAINNET ]
         </p>
       </div>
 
