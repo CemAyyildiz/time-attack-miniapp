@@ -25,6 +25,7 @@ export function useSubmitScore() {
       args: [BigInt(Math.floor(score)), BigInt(Math.floor(time))],
       value: value || BigInt(0), // Payment amount
       chainId: BASE_MAINNET_CHAIN_ID,
+      gas: BigInt(300000), // Set reasonable gas limit for Base (~$0.10-0.30)
     });
   };
 
