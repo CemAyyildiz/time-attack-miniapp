@@ -1,7 +1,6 @@
 import { useAccount, useConnect, useDisconnect, useSwitchChain } from 'wagmi';
 import { Button } from '@/components/ui/button';
 import { Wallet, LogOut, AlertTriangle } from 'lucide-react';
-import { BASE_CHAIN } from '@/lib/blockchain/config';
 import { useEffect } from 'react';
 
 const BASE_MAINNET_CHAIN_ID = 8453;
