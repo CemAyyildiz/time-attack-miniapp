@@ -19,8 +19,22 @@ export default function OnchainLeaderboard() {
   const topScores = useTopScores(100); // Get all scores
   const stats = useGameStats();
 
+  // Debug logging
+  console.log('🎮 Leaderboard Debug:', {
+    topScores,
+    topScoresLength: Array.isArray(topScores) ? topScores.length : 0,
+    topScoresType: typeof topScores,
+    stats,
+    contractAddress: import.meta.env.VITE_TIMEATTACK_CONTRACT_ADDRESS
+  });
+
   // Group scores by player
   const playerStats = useMemo(() => {
+    if (!topScores || !Array.isArray(topScores) || topScores.length === 0) {
+      console.log('⚠️ No scores available');
+      return [];
+    }
+
     const scores = topScores as unknown as BlockchainScoreEntry[];
     const playerMap = new Map<string, PlayerStats>();
 
