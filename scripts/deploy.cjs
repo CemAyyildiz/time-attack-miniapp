@@ -3,8 +3,11 @@ const hre = require("hardhat");
 async function main() {
   console.log("Deploying TimeAttackGame contract to Base...");
 
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying with account:", deployer.address);
+
   const TimeAttackGame = await hre.ethers.getContractFactory("TimeAttackGame");
-  const timeAttackGame = await TimeAttackGame.deploy();
+  const timeAttackGame = await TimeAttackGame.deploy(deployer.address);
 
   await timeAttackGame.waitForDeployment();
 
@@ -21,7 +24,7 @@ async function main() {
   try {
     await hre.run("verify:verify", {
       address: address,
-      constructorArguments: [],
+      constructorArguments: [deployer.address],
     });
     console.log("✅ Contract verified!");
   } catch (error) {
