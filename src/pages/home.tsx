@@ -14,7 +14,7 @@ const GAMES: BaseGame[] = [
   },
   {
     id: GAME_IDS.TIME_ATTACK,
-    name: 'Time Attack',
+    name: 'Perfect10',
     description: 'Can you stop the chronometer at exactly 10.00 seconds? Test your reflexes!',
     icon: '⏱️',
     path: ROUTES.TIME_ATTACK,

@@ -8,7 +8,7 @@ export default function Navbar() {
       <div className="flex h-full items-center justify-between px-6">
         <div className="flex items-center gap-2">
           <h1 className="text-xs font-semibold uppercase tracking-widest animate-pulse text-primary">
-            ▶ TIME ATTACK</h1>
+            ▶ PERFECT10</h1>
         </div>
 
         <div className="flex items-center gap-4">

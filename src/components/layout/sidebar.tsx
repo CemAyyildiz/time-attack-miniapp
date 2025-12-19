@@ -26,7 +26,7 @@ const NAV_ITEMS: NavItem[] = [
     icon: <Gamepad2 className="h-5 w-5" />,
   },
   {
-    label: 'Time Attack',
+    label: 'Perfect10',
     path: ROUTES.TIME_ATTACK,
     icon: <Timer className="h-5 w-5" />,
   },

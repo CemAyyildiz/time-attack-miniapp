@@ -56,7 +56,7 @@ contract TimeAttackGame is ERC721, Ownable {
     
     event LeaderboardUpdated(address indexed player, uint256 rank);
 
-    constructor(address initialOwner) ERC721("Time Attack Perfect Badge", "PERFECT") Ownable(initialOwner) {
+    constructor(address initialOwner) ERC721("Perfect10 Badge", "PERFECT10") Ownable(initialOwner) {
         nextBadgeId = 1;
     }
 

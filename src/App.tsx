@@ -19,7 +19,7 @@ export default function App() {
       <div className="max-w-2xl mx-auto space-y-8">
         <header className="text-center space-y-4 py-6">
           <h1 className="text-4xl font-bold uppercase tracking-widest retro-shadow">
-            ⏱️ TIME ATTACK
+            ⏱️ PERFECT10
           </h1>
           <p className="text-sm text-muted-foreground uppercase tracking-wider">
             Stop at exactly 10.00 seconds!

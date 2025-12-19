@@ -6,7 +6,7 @@
   },
   "miniapp": {
     "version": "1",
-    "name": "Time Attack",
+    "name": "Perfect10",
     "homeUrl": "https://mini-games-ifdp.vercel.app",
     "iconUrl": "https://mini-games-ifdp.vercel.app/icon.png",
     "splashImageUrl": "https://mini-games-ifdp.vercel.app/splash.png",
@@ -15,7 +15,7 @@
     "primaryCategory": "games",
     "tags": ["game", "reflex", "timing", "challenge"],
     "tagline": "Stop at 10.00!",
-    "ogTitle": "Time Attack - Precision Timing Game",
+    "ogTitle": "Perfect10 - Precision Timing Game",
     "ogDescription": "Can you stop the chronometer at exactly 10.00 seconds? Test your reflexes!",
     "splashBackgroundColor": "#020817"
   }

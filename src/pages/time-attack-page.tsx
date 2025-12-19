@@ -5,7 +5,7 @@ export default function TimeAttackPage() {
   return (
     <GameLayout
       data={{
-        title: 'Time Attack',
+        title: 'Perfect10',
         description: 'Stop the chronometer at exactly 10.00 seconds!',
         children: <TimeAttack />,
       }}
