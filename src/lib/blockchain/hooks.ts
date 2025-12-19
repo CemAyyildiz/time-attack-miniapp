@@ -20,7 +20,7 @@ export function useSubmitScore() {
     
     writeContract({
       address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-      abi: GAME_CONTRACT_ABI,
+      abi: GAME_CONTRACT_ABI as any,
       functionName: 'submitScore',
       args: [BigInt(Math.floor(score)), BigInt(Math.floor(time))],
       value: value || BigInt(0), // Payment amount
@@ -42,7 +42,7 @@ export function useSubmitScore() {
 export function usePlayerBestScore(address?: string) {
   const { data: bestScore } = useReadContract({
     address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-    abi: GAME_CONTRACT_ABI,
+    abi: GAME_CONTRACT_ABI as any,
     functionName: 'playerBestScore',
     args: address ? [address as `0x${string}`] : undefined,
   });
@@ -53,7 +53,7 @@ export function usePlayerBestScore(address?: string) {
 export function useHasPerfectBadge(address?: string) {
   const { data: hasBadge } = useReadContract({
     address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-    abi: GAME_CONTRACT_ABI,
+    abi: GAME_CONTRACT_ABI as any,
     functionName: 'hasPerfectBadge',
     args: address ? [address as `0x${string}`] : undefined,
   });
@@ -64,7 +64,7 @@ export function useHasPerfectBadge(address?: string) {
 export function useTopScores(count: number = 10) {
   const { data: scores } = useReadContract({
     address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-    abi: GAME_CONTRACT_ABI,
+    abi: GAME_CONTRACT_ABI as any,
     functionName: 'getTopScores',
     args: [BigInt(count)],
   });
@@ -75,16 +75,18 @@ export function useTopScores(count: number = 10) {
 export function useGameStats() {
   const { data: stats } = useReadContract({
     address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-    abi: GAME_CONTRACT_ABI,
+    abi: GAME_CONTRACT_ABI as any,
     functionName: 'getGameStats',
   });
 
   if (!stats) return { totalGames: 0, totalPerfectBadges: 0, leaderboardSize: 0 };
 
+  const statsArray = stats as readonly [bigint, bigint, bigint];
+  
   return {
-    totalGames: Number(stats[0]),
-    totalPerfectBadges: Number(stats[1]),
-    leaderboardSize: Number(stats[2]),
+    totalGames: Number(statsArray[0]),
+    totalPerfectBadges: Number(statsArray[1]),
+    leaderboardSize: Number(statsArray[2]),
   };
 }
 
