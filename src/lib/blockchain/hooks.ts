@@ -20,7 +20,7 @@ export function useSubmitScore() {
     
     writeContract({
       address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-      abi: GAME_CONTRACT_ABI as any,
+      abi: GAME_CONTRACT_ABI,
       functionName: 'submitScore',
       args: [BigInt(Math.floor(score)), BigInt(Math.floor(time))],
       value: value || BigInt(0), // Payment amount
@@ -42,7 +42,7 @@ export function useSubmitScore() {
 export function usePlayerBestScore(address?: string) {
   const { data: bestScore } = useReadContract({
     address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-    abi: GAME_CONTRACT_ABI as any,
+    abi: GAME_CONTRACT_ABI,
     functionName: 'playerBestScore',
     args: address ? [address as `0x${string}`] : undefined,
   });
@@ -53,7 +53,7 @@ export function usePlayerBestScore(address?: string) {
 export function useHasPerfectBadge(address?: string) {
   const { data: hasBadge } = useReadContract({
     address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-    abi: GAME_CONTRACT_ABI as any,
+    abi: GAME_CONTRACT_ABI,
     functionName: 'hasPerfectBadge',
     args: address ? [address as `0x${string}`] : undefined,
   });
@@ -64,7 +64,7 @@ export function useHasPerfectBadge(address?: string) {
 export function useTopScores(count: number = 10) {
   const { data: scores } = useReadContract({
     address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-    abi: GAME_CONTRACT_ABI as any,
+    abi: GAME_CONTRACT_ABI,
     functionName: 'getTopScores',
     args: [BigInt(count)],
   });
@@ -75,7 +75,7 @@ export function useTopScores(count: number = 10) {
 export function useGameStats() {
   const { data: stats } = useReadContract({
     address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
-    abi: GAME_CONTRACT_ABI as any,
+    abi: GAME_CONTRACT_ABI,
     functionName: 'getGameStats',
   });
 
