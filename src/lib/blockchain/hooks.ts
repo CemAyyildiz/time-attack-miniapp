@@ -81,10 +81,12 @@ export function useGameStats() {
 
   if (!stats) return { totalGames: 0, totalPerfectBadges: 0, leaderboardSize: 0 };
 
+  const statsArray = stats as readonly [bigint, bigint, bigint];
+  
   return {
-    totalGames: Number(stats[0]),
-    totalPerfectBadges: Number(stats[1]),
-    leaderboardSize: Number(stats[2]),
+    totalGames: Number(statsArray[0]),
+    totalPerfectBadges: Number(statsArray[1]),
+    leaderboardSize: Number(statsArray[2]),
   };
 }
 
