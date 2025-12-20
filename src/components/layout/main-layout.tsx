@@ -9,6 +9,15 @@ export default function MainLayout() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Animated Background */}
+      <div className="animated-bg">
+        <div className="floating-shape"></div>
+        <div className="floating-shape"></div>
+        <div className="floating-shape"></div>
+        <div className="glow-orb"></div>
+        <div className="glow-orb"></div>
+      </div>
+
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
       
       {/* Toggle Button */}

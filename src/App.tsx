@@ -16,7 +16,16 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground p-4">
-      <div className="max-w-2xl mx-auto space-y-8">
+      {/* Animated Background */}
+      <div className="animated-bg">
+        <div className="floating-shape"></div>
+        <div className="floating-shape"></div>
+        <div className="floating-shape"></div>
+        <div className="glow-orb"></div>
+        <div className="glow-orb"></div>
+      </div>
+
+      <div className="max-w-2xl mx-auto space-y-8 relative z-10">
         <header className="text-center space-y-4 py-6">
           <h1 className="text-4xl font-bold uppercase tracking-widest retro-shadow">
             ⏱️ PERFECT10
