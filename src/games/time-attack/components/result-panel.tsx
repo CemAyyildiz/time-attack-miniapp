@@ -33,6 +33,11 @@ export default function ResultPanel({ data }: ResultPanelProps) {
 
   const handleSubmit = () => {
     if (result) {
+      console.log('=== HANDLE SUBMIT ===');
+      console.log('Result:', result);
+      console.log('Payment Value:', paymentValue);
+      console.log('Is Connected:', isConnected);
+      console.log('====================');
       submitScore(result.score, result.stoppedTime, paymentValue);
     }
   };
@@ -95,6 +100,7 @@ export default function ResultPanel({ data }: ResultPanelProps) {
                   onClick={handleSubmit}
                   disabled={isPending || isConfirming}
                   className="min-w-[200px] text-xs uppercase tracking-widest"
+                  data-submit-button
                 >
                   {isPending || isConfirming ? (
                     <>
@@ -104,7 +110,7 @@ export default function ResultPanel({ data }: ResultPanelProps) {
                   ) : (
                     <>
                       <Upload className="mr-2 h-4 w-4" />
-                      Submit to Blockchain
+                      Submit to Blockchain (↵)
                     </>
                   )}
                 </Button>

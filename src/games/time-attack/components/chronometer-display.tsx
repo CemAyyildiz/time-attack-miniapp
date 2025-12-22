@@ -30,7 +30,7 @@ export default function ChronometerDisplay({ data }: ChronometerDisplayProps) {
       </div>
 
       <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
-        {isRunning ? '[ STOP AT 10.00 SECONDS ]' : '[ PRESS START ]'}
+        {isRunning ? '[ PRESS SPACE TO STOP ]' : '[ PRESS SPACE TO START ]'}
       </p>
     </div>
   );

@@ -16,7 +16,12 @@ export function useSubmitScore() {
       return;
     }
 
-    console.log('Submitting to Base mainnet (8453):', { score, time, value });
+    console.log('=== SUBMIT SCORE DEBUG ===');
+    console.log('Contract Address:', TIMEATTACK_CONTRACT_ADDRESS);
+    console.log('Score:', score, 'Time:', time, 'Value:', value);
+    console.log('Chain ID:', chain?.id);
+    console.log('Has ABI:', !!GAME_CONTRACT_ABI);
+    console.log('========================');
     
     writeContract({
       address: TIMEATTACK_CONTRACT_ADDRESS as `0x${string}`,
@@ -25,7 +30,7 @@ export function useSubmitScore() {
       args: [BigInt(Math.floor(score)), BigInt(Math.floor(time))],
       value: value || BigInt(0), // Payment amount
       chainId: BASE_MAINNET_CHAIN_ID,
-      gas: BigInt(300000), // Set reasonable gas limit for Base (~$0.10-0.30)
+      // Removed gas limit - let wallet estimate automatically
     });
   };
 
